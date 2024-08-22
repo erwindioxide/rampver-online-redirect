@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
- 
+    <title>Welcome to Rampver Online!</title>
+    <script>
+        let path = window.location.pathname;
+
+        let pathParts = path.substring(1).split('/');
+
+        let firstParam = pathParts[0];
+
+        let newURL;
+
+        if (firstParam) {
+            newURL = `https://app.rampver.com/ref/${firstParam}`;
+        } else {
+            newURL = 'https://app.rampver.com/ref/inquiries';
+        }
+
+        // Redirect to the new URL
+        window.location.href = newURL;
+    </script>
+
+
 </head>
+
 <body>
     <script>
-        // Function to fetch the API data
-        async function fetchApiData() {
-          try {
-            const response = await fetch('https://opensheet.elk.sh/16dCQP_kbURQGRbGAB1GiIOfgkdFkj88PXxbuGtr2k5Q/ref_list');
-            return await response.json();
-          } catch (error) {
-            console.error('Error fetching API data:', error);
-            return null;
-          }
+        // Get the current URL path
+        let path = window.location.pathname;
+
+        // Remove the leading slash and split the path
+        let pathParts = path.substring(1).split('/');
+
+        // Get the first parameter (if it exists)
+        let firstParam = pathParts[0];
+
+        // Construct the new URL
+        let newURL;
+
+        if (firstParam) {
+            // If a parameter exists, redirect to app.rampver.com/ref/(first_param)
+            newURL = `https://app.rampver.com/ref/${firstParam}`;
+        } else {
+            // If no parameter, redirect to app.rampver.com/ref/inquiries
+            newURL = 'https://app.rampver.com/ref/inquiries';
         }
-        
-        // Function to get the first parameter from the URL
-        function getFirstParameter() {
-          const path = window.location.pathname.slice(1); // Remove leading slash
-          return path.split('/')[0]; // Get the first part of the path
-        }
-        
-        // Function to redirect based on the parameter and API data
-        async function handleRedirect() {
-          const apiData = await fetchApiData();
-          if (!apiData) return; // Exit if API fetch failed
-        
-          const param = getFirstParameter();
-        
-          // Check if param is empty or 'index.html'
-          if (!param || param === 'index.html') {
-            window.location.href = 'https://app.rampver.com/ref/inquiries';
-            return;
-          }
-        
-          // Check if the param exists in the API data
-          for (const item of apiData) {
-            if (item.id === param) {
-              window.location.href = `https://app.rampver.com/ref/${item.redirect}`;
-              return;
-            }
-          }
-        
-          // If no match found, you can decide what to do here
-          // For example, redirect to a default page or show an error
-          console.log('No matching redirect found');
-        }
-        
-        // Call the function when the script loads
-        handleRedirect();
-            </script>
-    
+
+        // Redirect to the new URL
+        window.location.href = newURL;
+    </script>
+
 </body>
+
 </html>
